@@ -25,8 +25,13 @@ public class CalculatorApp {
         String opr = inputs.getOperator();
         Double[] numbers = numberRepository.getNumbers();
         Operation operation = operationFactory.getInstance(opr);
-        final double result = operation.execute(numbers);
-        ui.showMessage("Result is " + result);
+        double result = Double.parseDouble(null);
+        try {
+            result = operation.execute(numbers);
+        } catch (InvalidOperationException e) {
+            UI.showMessage("Error Occurred!" + e.getMessage());
+        }
+        UI.showMessage("Result is " + result);
 
     }
 }
