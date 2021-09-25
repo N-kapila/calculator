@@ -4,6 +4,7 @@ import lk.nirmal.uni.v5.input.Inputs;
 import lk.nirmal.uni.v5.operations.*;
 import lk.nirmal.uni.v5.repository.NumberRepository;
 import lk.nirmal.uni.v5.ui.UI;
+
 import java.io.IOException;
 
 public class CalculatorApp {
@@ -25,13 +26,13 @@ public class CalculatorApp {
         String opr = inputs.getOperator();
         Double[] numbers = numberRepository.getNumbers();
         Operation operation = operationFactory.getInstance(opr);
-        double result = Double.parseDouble(null);
+        Double result = null;
         try {
             result = operation.execute(numbers);
         } catch (InvalidOperationException e) {
-            UI.showMessage("Error Occurred!" + e.getMessage());
+            ui.showMessage("Error Occurred!" + e.getMessage());
         }
-        UI.showMessage("Result is " + result);
+        ui.showMessage("Result is " + result);
 
     }
 }
