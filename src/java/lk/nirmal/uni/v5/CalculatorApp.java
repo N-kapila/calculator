@@ -1,8 +1,10 @@
 package lk.nirmal.uni.v5;
 
 import lk.nirmal.uni.v5.input.Inputs;
+import lk.nirmal.uni.v5.input.InvalidInputException;
 import lk.nirmal.uni.v5.operations.*;
 import lk.nirmal.uni.v5.repository.NumberRepository;
+import lk.nirmal.uni.v5.repository.NumberRepositoryException;
 import lk.nirmal.uni.v5.ui.UI;
 
 import java.io.IOException;
@@ -21,18 +23,18 @@ public class CalculatorApp {
         this.ui = ui;
     }
 
-    public void execute() throws IOException {
+    public void execute() {
 
-        String opr = inputs.getOperator();
-        Double[] numbers = numberRepository.getNumbers();
-        Operation operation = operationFactory.getInstance(opr);
-        Double result = null;
         try {
-            result = operation.execute(numbers);
-        } catch (InvalidOperationException e) {
-            ui.showMessage("Error Occurred!" + e.getMessage());
+            String operator = inputs.getOperator();
+            Double[] numbers = numberRepository.getNumbers();
+            Operation operation = operationFactory.getInstance(operator);
+            Double result = operation.execute(numbers);
+            ui.showMessage("The result is " + result);
+        } catch (InvalidInputException | NumberRepositoryException | InvalidOperationException e){
+            ui.showMessage("Error Occurred!"+ e.getMessage());
         }
-        ui.showMessage("Result is " + result);
 
+
+        }
     }
-}

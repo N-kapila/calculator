@@ -1,24 +1,22 @@
 package lk.nirmal.uni.v5.input;
 
-public class CommandLineInputs implements Inputs{
+public class CommandLineInputs implements Inputs {
     private final String args[];
 
     public CommandLineInputs(String args[]) {
         this.args = args;
     }
 
-    public String getOperator() {
+    public String getOperator() throws InvalidInputException {
         if (args.length == 0) {
-            System.out.println("Please provide any arguments");
-            return "";
+            throw new InvalidInputException("Please provide any arguments");
         }
 
-        String opr = args[0];
+        String operation = args[0];
 
-        if (!(opr.equals("add") || opr.equals("sub") || opr.equals("mul") || opr.equals("div"))) {
-            System.out.println("Please provide any valid operation");
-            return "";
+        if (!(operation.equals("add") || operation.equals("sub") || operation.equals("mul") || operation.equals("div"))) {
+            throw new InvalidInputException("Please provide any valid operation");
         }
-        return opr;
+        return operation;
     }
 }
